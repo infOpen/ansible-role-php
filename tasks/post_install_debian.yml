@@ -1,0 +1,16 @@
+---
+
+# Debian tasks post install
+
+- name    : restart web server
+  service :
+    name  : apache2
+    state : restarted
+  when : >
+    (apache_installed_check.stdout.find('no packages found') == -1) and
+    (
+      new_packages_installed.changed or
+      php_config_change.changed      or
+      php_module_enabled.changed     or
+      php_module_disabled.changed
+    )

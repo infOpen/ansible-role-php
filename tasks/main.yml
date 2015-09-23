@@ -1,0 +1,45 @@
+---
+
+# Tasks file for php
+
+- name: Load the OS specific varibles
+  include_vars: "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+
+
+- include: install_debian.yml
+  tags:
+    - install
+    - php
+  when: ansible_os_family == "Debian"
+
+
+- name     : generate config file
+  template :
+    src   : "{{ role_path }}/templates/apache2_php.ini.j2"
+    dest  : "/etc/php5/apache2/php.ini"
+    owner : root
+    group : root
+    mode  : 0644
+  register : php_config_change
+
+
+- name  : disable php modules
+  shell : "php5dismod {{ item.name }}"
+  args  :
+    removes : "{{ item.link }}"
+  register   : php_module_disabled
+  with_items : php_module_to_disable
+
+
+- name  : enable php modules
+  shell : "php5enmod {{ item.name }}"
+  args  :
+    creates : "{{ item.link }}"
+  register   : php_module_enabled
+  with_items : php_module_to_enable
+
+- include: post_install_debian.yml
+  tags:
+    - install
+    - php
+  when: ansible_os_family == "Debian"

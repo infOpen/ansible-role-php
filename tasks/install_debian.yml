@@ -1,0 +1,15 @@
+---
+
+# Debian install tasks
+
+- name: Check if apache is installed
+  command: dpkg-query -l apache2
+  register: apache_installed_check
+
+
+- name : install desired php packages
+  apt  :
+    name  : "{{ item }}"
+    state : present
+  register   : new_packages_installed
+  with_items : php_packages

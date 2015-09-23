@@ -1,0 +1,6 @@
+---
+
+# Debian vars
+
+php_packages :
+  - php5
