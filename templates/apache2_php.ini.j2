@@ -3,21 +3,21 @@
 [PHP]
 
 display_errors          = {{ php_config_main_display_errors }}
-display_startup_errors  = {{ php_config_main_display_startup_errors }}
+display_startup_errors  = {{ php_config_main_display_startup_errors }}
 error_reporting         = {{ php_config_main_error_reporting }}
 html_errors             = {{ php_config_main_html_errors }}
 log_errors              = {{ php_config_main_log_errors }}
 max_input_time          = {{ php_config_main_max_input_time }}
 output_buffering        = {{ php_config_main_output_buffering }}
 register_argc_argv      = {{ php_config_main_register_argc_argv }}
-request_order           = {{ php_config_main_request_order }}
+request_order           = {{ php_config_main_request_order }}
 
 session.bug_compat_42   = {{ php_config_main_session_bug_compat_42 }}
-session.bug_compat_warn = {{ php_config_main_session_bug_compat_warn }}
+session.bug_compat_warn = {{ php_config_main_session_bug_compat_warn }}
 session.gc_divisor      = {{ php_config_main_session_gc_divisor }}
-session.hash_bits_per_character = {{ php_config_main_session_hash_bits_per_character }}
+session.hash_bits_per_character = {{ php_config_main_session_hash_bits_per_character }}
 
-short_open_tag      = {{ php_config_main_short_open_tag }}
+short_open_tag      = {{ php_config_main_short_open_tag }}
 track_errors        = {{ php_config_main_track_errors }}
 url_rewriter.tags   = {{ php_config_main_url_rewriter_tags | join(',') }}
 variables_order     = {{ php_config_main_variables_order }}
@@ -29,7 +29,7 @@ variables_order     = {{ php_config_main_variables_order }}
 {% if php_config_main_user_ini_filename == False %}
 user_ini.filename =
 {% else %}
-user_ini.filename = {{ php_config_main_user_ini_filename }}
+user_ini.filename = {{ php_config_main_user_ini_filename }}
 {% endif %}
 
 user_ini.cache_ttl = {{ php_config_main_user_ini_cache_ttl }}
@@ -47,7 +47,7 @@ output_buffering = {{ php_config_main_language_output_buffering }}
 {% if php_config_main_language_output_handler == False %}
 ;output_handler =
 {% else %}
-output_handler = {{ php_config_main_language_output_handler }}
+output_handler = {{ php_config_main_language_output_handler }}
 {% endif %}
 
 zlib.output_compression       = {{ php_config_main_language_zlib_output_compression }}
@@ -55,7 +55,7 @@ zlib.output_compression_level = {{ php_config_main_language_zlib_output_compress
 {% if php_config_main_language_zlib_output_handler == False %}
 ;zlib.output_handler =
 {% else %}
-zlib.output_handler = {{ php_config_main_language_zlib_output_handler }}
+zlib.output_handler = {{ php_config_main_language_zlib_output_handler }}
 {% endif %}
 
 implicit_flush = {{ php_config_main_language_implicit_flush }}
@@ -116,7 +116,7 @@ display_errors          = {{ php_config_main_display_errors }}
 display_startup_errors  = {{ php_config_main_display_startup_errors }}
 
 log_errors          = {{ php_config_main_log_errors }}
-log_errors_max_len  = {{ php_config_main_log_errors_max_len }}
+log_errors_max_len  = {{ php_config_main_log_errors_max_len }}
 
 ignore_repeated_errors = {{ php_config_main_ignore_repeated_errors }}
 ignore_repeated_source = {{ php_config_main_ignore_repeated_source }}
@@ -125,7 +125,7 @@ report_memleaks     = {{ php_config_main_report_memleaks }}
 report_zend_debug   = {{ php_config_main_report_zend_debug }}
 track_errors        = {{ php_config_main_track_errors }}
 
-xmlrpc_errors       = {{ php_config_main_xmlrpc_errors }}
+xmlrpc_errors       = {{ php_config_main_xmlrpc_errors }}
 xmlrpc_error_number = {{ php_config_main_xmlrpc_error_number }}
 
 html_errors = {{ php_config_main_html_errors }}
@@ -136,7 +136,7 @@ error_prepend_string = {{ php_config_main_error_prepend_string }}
 error_append_string  = {{ php_config_main_error_append_string }}
 
 error_log                = {{ php_config_main_error_log }}
-windows.show_crt_warning = {{ php_config_main_windows_show_crt_warning }}
+windows.show_crt_warning = {{ php_config_main_windows_show_crt_warning }}
 
 
 ;;;;;;;;;;;;;;;;;
@@ -148,19 +148,19 @@ arg_separator.input  = "{{ php_config_main_arg_separator_input }}"
 variables_order = "{{ php_config_main_variables_order }}"
 request_order   = "{{ php_config_main_request_order }}"
 
-register_argc_argv  = {{ php_config_main_register_argc_argv }}
+register_argc_argv  = {{ php_config_main_register_argc_argv }}
 auto_globals_jit    = {{ php_config_main_auto_globals_jit }}
 
 enable_post_data_reading = {{ php_config_main_enable_post_data_reading }}
 post_max_size            = {{ php_config_main_post_max_size }}
 
-auto_prepend_file = {{ php_config_main_auto_prepend_file }}
+auto_prepend_file = {{ php_config_main_auto_prepend_file }}
 auto_append_file  = {{ php_config_main_auto_append_file }}
 
 default_mimetype = "{{ php_config_main_default_mimetype }}"
 default_charset  = "{{ php_config_main_default_charset }}"
 
-always_populate_raw_post_data = {{ php_config_main_always_populate_raw_post_data }}
+always_populate_raw_post_data = {{ php_config_main_always_populate_raw_post_data }}
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
