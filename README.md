@@ -482,7 +482,7 @@ Default role variables
 Dependencies
 ------------
 
-None
+- achaussier.apache
 
 Example Playbook
 ----------------
