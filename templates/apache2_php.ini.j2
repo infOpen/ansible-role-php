@@ -19,7 +19,7 @@ session.hash_bits_per_character = {{ php_config_main_session_hash_bits_per_chara
 
 short_open_tag      = {{ php_config_main_short_open_tag }}
 track_errors        = {{ php_config_main_track_errors }}
-url_rewriter.tags   = {{ php_config_main_url_rewriter_tags | join(',') }}
+url_rewriter.tags   = "{{ php_config_main_url_rewriter_tags | join(',') }}"
 variables_order     = {{ php_config_main_variables_order }}
 
 
@@ -322,7 +322,7 @@ mysql.max_persistent        = {{ php_config_main_module_mysql_max_persistent }}
 mysql.max_links             = {{ php_config_main_module_mysql_max_links }}
 mysql.default_port          = {{ php_config_main_module_mysql_default_port }}
 mysql.default_socket        = {{ php_config_main_module_mysql_default_socket }}
-mysql.default_host          = {{ php_config_main_module_mysql_default_host }}
+mysql.default_host          = {{ php_config_main_module_mysql_default_host }}
 mysql.default_user          = {{ php_config_main_module_mysql_default_user }}
 mysql.default_password      = {{ php_config_main_module_mysql_default_password }}
 mysql.connect_timeout       = {{ php_config_main_module_mysql_connect_timeout }}
@@ -483,7 +483,7 @@ mbstring.detect_order               = {{ php_config_main_module_mbstring_detect_
 mbstring.substitute_character       = {{ php_config_main_module_mbstring_substitute_character }}
 mbstring.func_overload              = {{ php_config_main_module_mbstring_func_overload }}
 mbstring.strict_detection           = {{ php_config_main_module_mbstring_strict_detection }}
-mbstring.http_output_conv_mimetype  = {{ php_config_main_module_mbstring_http_output_conv_mimetype }}
+mbstring.http_output_conv_mimetype  = "{{ php_config_main_module_mbstring_http_output_conv_mimetype }}"
 
 
 [gd]
@@ -545,7 +545,7 @@ opcache.fast_shutdown           = {{ php_config_main_module_opcache_fast_shutdow
 opcache.enable_file_override    = {{ php_config_main_module_opcache_enable_file_override }}
 opcache.optimization_level      = {{ php_config_main_module_opcache_optimization_level }}
 opcache.inherited_hack          = {{ php_config_main_module_opcache_inherited_hack }}
-opcache.dups_fix                = {{ php_config_main_module_opcache_dups_fix }}
+opcache.dups_fix                = {{ php_config_main_module_opcache_dups_fix }}
 opcache.blacklist_filename      = {{ php_config_main_module_opcache_blacklist_filename }}
 opcache.max_file_size           = {{ php_config_main_module_opcache_max_file_size }}
 opcache.consistency_checks      = {{ php_config_main_module_opcache_consistency_checks }}
