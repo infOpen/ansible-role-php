@@ -2,4 +2,5 @@
 
 # Role requirements used to launch tests
 - src : achaussier.apache
+  version : 0.1.2
 
