@@ -1,0 +1,7 @@
+# Vagrant files
+.vagrant
+roles
+
+# Swap files
+*.swp
+
