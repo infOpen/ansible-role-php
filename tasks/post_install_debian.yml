@@ -3,6 +3,7 @@
 # Debian tasks post install
 
 - name    : restart web server
+  become : True
   service :
     name  : apache2
     state : restarted

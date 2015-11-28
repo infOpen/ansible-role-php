@@ -1,20 +1,26 @@
-php
-===
+# php
+
 
 [![Build Status](https://travis-ci.org/infOpen/ansible-role-php.svg?branch=master)](https://travis-ci.org/infOpen/ansible-role-php)
 
 Install php package.
 
-Requirements
-------------
+## Requirements
 
 This role requires Ansible 1.5 or higher, and platform requirements are listed
 in the metadata file.
 
-Role Variables
---------------
+## Testing
 
-Default role variables
+This role contains two tests methods :
+- locally using Vagrant (vagrant-triggers plugin needed)
+- automatically with Travis
+
+Local tests should be passed with Vagrant before push to Github.
+
+## Role Variables
+
+### Default role variables
 
     # Package variables
     #------------------
@@ -479,25 +485,21 @@ Default role variables
     php_config_main_module_curl_cainfo : ""
 
 
-Dependencies
-------------
+## Dependencies
 
 - achaussier.apache
 
-Example Playbook
-----------------
+## Example Playbook
 
     - hosts: servers
       roles:
          - { role: achaussier.php }
 
-License
--------
+## License
 
 MIT
 
-Author Information
-------------------
+## Author Information
 
 Alexandre Chaussier (for Infopen company)
 - http://www.infopen.pro
