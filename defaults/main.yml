@@ -13,28 +13,19 @@ php_module_to_disable : []
 #============================= Main configuration ==============================
 
 # PHP section
-php_config_main_display_errors          : "Off"
-php_config_main_display_startup_errors  : "Off"
-php_config_main_error_reporting         : "E_ALL & ~E_DEPRECATED & ~E_STRICT"
-php_config_main_html_errors             : "On"
-php_config_main_log_errors              : "On"
 php_config_main_max_input_time          : "60"
 php_config_main_output_buffering        : 4096
-php_config_main_register_argc_argv      : "Off"
-php_config_main_request_order           : "GP"
 php_config_main_session_bug_compat_42   : "Off"
 php_config_main_session_bug_compat_warn : "Off"
 php_config_main_session_gc_divisor      : 1000
 php_config_main_session_hash_bits_per_character : 5
 php_config_main_short_open_tag          : "Off"
-php_config_main_track_errors            : "Off"
 php_config_main_url_rewriter_tags :
   - "a=href"
   - "area=href"
   - "frame=src"
   - "input=src"
   - "form=fakeentry"
-php_config_main_variables_order     : "GPCS"
 
 # php.ini options
 php_config_main_user_ini_filename   : False
