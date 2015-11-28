@@ -2,7 +2,3 @@
 
 # Tests for php role
 
-- hosts: localhost
-  remote_user: root
-  roles:
-    - ansible-role-php
