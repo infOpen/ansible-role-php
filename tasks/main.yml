@@ -3,7 +3,7 @@
 # Tasks file for php
 
 - name: Load the OS specific varibles
-  include_vars: "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+  include_vars: "vars/{{ ansible_distribution_release | lower }}.yml"
 
 
 - include: install_debian.yml
@@ -22,24 +22,25 @@
     group : root
     mode  : 0644
   register : php_config_change
+  with_items: "{{ php_config_settings }}"
 
 
 - name  : disable php modules
   become : True
-  shell : "php5dismod {{ item.name }}"
+  shell : "{{ php_modules_binary_disable }} {{ item.name }}"
   args  :
     removes : "{{ item.link }}"
   register   : php_module_disabled
-  with_items : php_module_to_disable
+  with_items : "{{ php_module_to_disable }}"
 
 
 - name  : enable php modules
   become : True
-  shell : "php5enmod {{ item.name }}"
+  shell : "{{ php_modules_binary_enable }} {{ item.name }}"
   args  :
     creates : "{{ item.link }}"
   register   : php_module_enabled
-  with_items : php_module_to_enable
+  with_items : "{{ php_module_to_enable }}"
 
 - include: post_install_debian.yml
   tags:

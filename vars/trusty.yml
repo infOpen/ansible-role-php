@@ -1,0 +1,11 @@
+---
+
+# Ubuntu trusty vars
+
+_php_config_settings: []
+
+_php_packages:
+  - 'php5'
+
+_php_modules_binary_disable: '/usr/sbin/php5dismod'
+_php_modules_binary_enable: '/usr/sbin/php5enmod'

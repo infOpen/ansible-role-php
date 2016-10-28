@@ -1,0 +1,11 @@
+---
+
+# Ubuntu xenial vars
+
+_php_config_settings: []
+
+_php_packages:
+  - 'php'
+
+_php_modules_binary_disable: '/usr/sbin/phpdismod'
+_php_modules_binary_enable: '/usr/sbin/phpenmod'
