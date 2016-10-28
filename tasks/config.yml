@@ -1,0 +1,19 @@
+---
+
+# PHP config tasks
+
+- name: 'Manage php.ini config files'
+  become: True
+  ini_file:
+    dest: "{{ item.0.dest }}"
+    owner: "{{ php_config_files_owner }}"
+    group: "{{ php_config_files_group }}"
+    mode: "{{ php_config_files_mode }}"
+    section: "{{ item.1.section }}"
+    option: "{{ item.1.option | default(omit) }}"
+    value: "{{ item.1.value | default(omit) }}"
+    state: "{{ item.1.state | default('present') }}"
+  notify: 'Manage dependencies services'
+  with_subelements:
+    - "{{ php_config_settings }}"
+    - 'settings'

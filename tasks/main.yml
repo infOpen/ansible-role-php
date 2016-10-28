@@ -13,16 +13,10 @@
   when: ansible_os_family == "Debian"
 
 
-- name     : generate config file
-  become   : True
-  template :
-    src   : "{{ role_path }}/templates/apache2_php.ini.j2"
-    dest  : "/etc/php5/apache2/php.ini"
-    owner : root
-    group : root
-    mode  : 0644
-  register : php_config_change
-  with_items: "{{ php_config_settings }}"
+- include: 'config.yml'
+  tags:
+    - 'php::role'
+    - 'php::config'
 
 
 - name  : disable php modules
@@ -30,7 +24,7 @@
   shell : "{{ php_modules_binary_disable }} {{ item.name }}"
   args  :
     removes : "{{ item.link }}"
-  register   : php_module_disabled
+  notify: 'Manage dependencies services'
   with_items : "{{ php_module_to_disable }}"
 
 
@@ -39,12 +33,5 @@
   shell : "{{ php_modules_binary_enable }} {{ item.name }}"
   args  :
     creates : "{{ item.link }}"
-  register   : php_module_enabled
+  notify: 'Manage dependencies services'
   with_items : "{{ php_module_to_enable }}"
-
-- include: post_install_debian.yml
-  tags:
-    - install
-    - php
-  when: ansible_os_family == "Debian"
-

@@ -2,7 +2,14 @@
 
 # Ubuntu xenial vars
 
-_php_config_settings: []
+_php_config_base_path: '/etc/php/7.0'
+_php_config_settings:
+  - dest: "{{ php_config_base_path }}/cli/php.ini"
+    settings: []
+
+_php_dependencies_services:
+  - name: 'php7.0-fpm'
+    state: 'restarted'
 
 _php_packages:
   - 'php'

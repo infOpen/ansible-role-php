@@ -10,4 +10,5 @@
     update_cache: "{{ php_apt_update_cache }}"
     cache_valid_time: "{{ php_apt_cache_valid_time }}"
   register   : new_packages_installed
+  notify: 'Manage dependencies services'
   with_items : "{{ php_packages }}"
