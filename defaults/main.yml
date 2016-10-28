@@ -4,11 +4,14 @@
 
 # Package variables
 #------------------
+php_apt_update_cache: True
+php_apt_cache_valid_time: 3600
 php_package_state   : present
 
 php_module_to_enable  : []
 php_module_to_disable : []
 
+php_webserver_service_name: ''
 
 #============================= Main configuration ==============================
 

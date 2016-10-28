@@ -5,10 +5,10 @@
 - name    : restart web server
   become : True
   service :
-    name  : apache2
+    name  : "{{ php_webserver_service_name }}"
     state : restarted
   when : >
-    (apache_installed_check.stdout.find('no packages found') == -1) and
+    php_webserver_service_name and
     (
       new_packages_installed.changed or
       php_config_change.changed      or

@@ -21,7 +21,4 @@ galaxy_info:
 
   categories:
     - web
-dependencies:
-  - role: achaussier.apache
-    version: 0.1.2
-
+dependencies: []
