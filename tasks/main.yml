@@ -10,38 +10,16 @@
     - 'php::install'
 
 
-- include: 'install_debian.yml'
+- name: 'Install PHP on debian familly systems'
+  include: 'install_debian.yml'
   when: "{{ (ansible_os_family | lower) == 'debian' }}"
   tags:
     - 'php::role'
     - 'php::install'
 
 
-- include: 'config.yml'
-  tags:
-    - 'php::role'
-    - 'php::config'
-
-
-- name: 'Disable PHP modules'
-  become: True
-  shell: "{{ php_modules_binary_disable }} {{ item.name }}"
-  args:
-    removes: "{{ item.link }}"
-  notify: 'Manage dependencies services'
-  with_items: "{{ php_module_to_disable }}"
-  tags:
-    - 'php::role'
-    - 'php::config'
-
-
-- name: 'Enable PHP modules'
-  become: True
-  shell: "{{ php_modules_binary_enable }} {{ item.name }}"
-  args:
-    creates: "{{ item.link }}"
-  notify: 'Manage dependencies services'
-  with_items: "{{ php_module_to_enable }}"
+- name: 'Configure PHP and modules'
+  include: 'config.yml'
   tags:
     - 'php::role'
     - 'php::config'

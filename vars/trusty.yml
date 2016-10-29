@@ -18,3 +18,8 @@ _php_packages:
 
 _php_modules_binary_disable: '/usr/sbin/php5dismod'
 _php_modules_binary_enable: '/usr/sbin/php5enmod'
+_php_modules_enabled:
+  - 'json'
+  - 'opcache'
+  - 'pdo'
+  - 'readline'

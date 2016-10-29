@@ -63,11 +63,38 @@ php_config_settings: "{{ _php_config_settings }}"
 # Modules management
 php_modules_binary_disable: "{{ _php_modules_binary_disable }}"
 php_modules_binary_enable: "{{ _php_modules_binary_enable }}"
-php_module_to_enable: []
-php_module_to_disable: []
+php_modules_enabled: "{{ _php_modules_enabled }}"
 
 # Services to manage if packages or configuration is updated
 php_dependencies_services: "{{ _php_dependencies_services }}"
+```
+
+## How define ...
+
+### Custom settings into ini files
+
+```yaml
+php_config_settings:
+  - dest: "{{ php_config_base_path }}/cli/php.ini"
+    settings:
+      - section: 'PHP'
+        option: 'precision'
+        value: 15
+      - section: 'sqlite3'
+        state: 'absent'
+      - section: 'sqlite'
+        state: 'absent'
+  - dest: "{{ php_config_base_path }}/apache2/php.ini"
+    settings: []
+```
+
+### Enabled modules
+
+```yaml
+php_modules_enabled:
+  - 'json'
+  - 'opcache'
+  - 'pdo'
 ```
 
 ## Dependencies
