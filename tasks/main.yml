@@ -2,48 +2,24 @@
 
 # Tasks file for php
 
-- name: Load the OS specific varibles
-  include_vars: "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
-
-
-- include: install_debian.yml
+- name: 'Load the OS specific varibles'
+  include_vars: "vars/{{ ansible_distribution_release | lower }}.yml"
   tags:
-    - install
-    - php
-  when: ansible_os_family == "Debian"
+    - 'php::role'
+    - 'php::config'
+    - 'php::install'
 
 
-- name     : generate config file
-  become   : True
-  template :
-    src   : "{{ role_path }}/templates/apache2_php.ini.j2"
-    dest  : "/etc/php5/apache2/php.ini"
-    owner : root
-    group : root
-    mode  : 0644
-  register : php_config_change
-
-
-- name  : disable php modules
-  become : True
-  shell : "php5dismod {{ item.name }}"
-  args  :
-    removes : "{{ item.link }}"
-  register   : php_module_disabled
-  with_items : php_module_to_disable
-
-
-- name  : enable php modules
-  become : True
-  shell : "php5enmod {{ item.name }}"
-  args  :
-    creates : "{{ item.link }}"
-  register   : php_module_enabled
-  with_items : php_module_to_enable
-
-- include: post_install_debian.yml
+- name: 'Install PHP on debian familly systems'
+  include: 'install_debian.yml'
+  when: "{{ (ansible_os_family | lower) == 'debian' }}"
   tags:
-    - install
-    - php
-  when: ansible_os_family == "Debian"
+    - 'php::role'
+    - 'php::install'
 
+
+- name: 'Configure PHP and modules'
+  include: 'config.yml'
+  tags:
+    - 'php::role'
+    - 'php::config'

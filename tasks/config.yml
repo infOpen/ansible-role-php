@@ -1,0 +1,48 @@
+---
+
+# PHP config tasks
+
+- name: 'Manage php.ini config files'
+  become: True
+  ini_file:
+    dest: "{{ item.0.dest }}"
+    owner: "{{ php_config_files_owner }}"
+    group: "{{ php_config_files_group }}"
+    mode: "{{ php_config_files_mode }}"
+    section: "{{ item.1.section }}"
+    option: "{{ item.1.option | default(omit) }}"
+    value: "{{ item.1.value | default(omit) }}"
+    state: "{{ item.1.state | default('present') }}"
+  notify: 'Manage dependencies services'
+  with_subelements:
+    - "{{ php_config_settings }}"
+    - 'settings'
+
+
+- name: 'Enable PHP modules'
+  become: True
+  shell: "{{ php_modules_binary_enable }} {{ item }}"
+  args:
+    creates: "{{ php_config_base_path }}/cli/conf.d/*-{{ item }}.ini"
+  notify: 'Manage dependencies services'
+  with_items: "{{ php_modules_enabled }}"
+
+
+- name: 'Find all enabled modules'
+  become: True
+  shell: >
+    find {{ _php_config_base_path }}/mods-available/ \
+     -name "*.ini" \
+     -type f \
+     -exec basename \{} .ini \;
+  register: 'php_available_modules'
+  changed_when: False
+
+
+- name: 'Disable unmanaged modules'
+  become: True
+  shell: "{{ php_modules_binary_disable }} {{ item }}"
+  args:
+    removes: "{{ php_config_base_path }}/cli/conf.d/*-{{ item }}.ini"
+  notify: 'Manage dependencies services'
+  with_items: "{{ php_available_modules.stdout_lines | difference(php_modules_enabled) | list }}"
