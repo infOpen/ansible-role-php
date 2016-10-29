@@ -1,0 +1,25 @@
+---
+
+# Ubuntu trusty vars
+
+_php_config_base_path: '/etc/php5'
+_php_config_settings:
+  - dest: "{{ php_config_base_path }}/cli/php.ini"
+    settings: []
+  - dest: "{{ php_config_base_path }}/apache2/php.ini"
+    settings: []
+
+_php_dependencies_services:
+  - name: 'apache2'
+    state: 'restarted'
+
+_php_packages:
+  - name: 'php5'
+
+_php_modules_binary_disable: '/usr/sbin/php5dismod'
+_php_modules_binary_enable: '/usr/sbin/php5enmod'
+_php_modules_enabled:
+  - 'json'
+  - 'opcache'
+  - 'pdo'
+  - 'readline'
