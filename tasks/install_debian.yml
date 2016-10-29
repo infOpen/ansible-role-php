@@ -2,13 +2,12 @@
 
 # Debian install tasks
 
-- name : install desired php packages
+- name : 'Install desired PHP packages'
   become : True
   apt  :
-    name  : "{{ item }}"
-    state : present
+    name  : "{{ item.name }}"
+    state : "{{ item.state | default('present') }}"
     update_cache: "{{ php_apt_update_cache }}"
     cache_valid_time: "{{ php_apt_cache_valid_time }}"
-  register   : new_packages_installed
   notify: 'Manage dependencies services'
   with_items : "{{ php_packages }}"

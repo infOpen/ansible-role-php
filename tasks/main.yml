@@ -2,15 +2,19 @@
 
 # Tasks file for php
 
-- name: Load the OS specific varibles
+- name: 'Load the OS specific varibles'
   include_vars: "vars/{{ ansible_distribution_release | lower }}.yml"
-
-
-- include: install_debian.yml
   tags:
-    - install
-    - php
-  when: ansible_os_family == "Debian"
+    - 'php::role'
+    - 'php::config'
+    - 'php::install'
+
+
+- include: 'install_debian.yml'
+  when: "{{ (ansible_os_family | lower) == 'debian' }}"
+  tags:
+    - 'php::role'
+    - 'php::install'
 
 
 - include: 'config.yml'
@@ -19,19 +23,25 @@
     - 'php::config'
 
 
-- name  : disable php modules
-  become : True
-  shell : "{{ php_modules_binary_disable }} {{ item.name }}"
-  args  :
-    removes : "{{ item.link }}"
+- name: 'Disable PHP modules'
+  become: True
+  shell: "{{ php_modules_binary_disable }} {{ item.name }}"
+  args:
+    removes: "{{ item.link }}"
   notify: 'Manage dependencies services'
-  with_items : "{{ php_module_to_disable }}"
+  with_items: "{{ php_module_to_disable }}"
+  tags:
+    - 'php::role'
+    - 'php::config'
 
 
-- name  : enable php modules
-  become : True
-  shell : "{{ php_modules_binary_enable }} {{ item.name }}"
-  args  :
-    creates : "{{ item.link }}"
+- name: 'Enable PHP modules'
+  become: True
+  shell: "{{ php_modules_binary_enable }} {{ item.name }}"
+  args:
+    creates: "{{ item.link }}"
   notify: 'Manage dependencies services'
-  with_items : "{{ php_module_to_enable }}"
+  with_items: "{{ php_module_to_enable }}"
+  tags:
+    - 'php::role'
+    - 'php::config'

@@ -14,7 +14,7 @@ _php_dependencies_services:
     state: 'restarted'
 
 _php_packages:
-  - 'php5'
+  - name: 'php5'
 
 _php_modules_binary_disable: '/usr/sbin/php5dismod'
 _php_modules_binary_enable: '/usr/sbin/php5enmod'
