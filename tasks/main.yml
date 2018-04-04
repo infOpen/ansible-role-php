@@ -1,25 +1,27 @@
 ---
 
-# Tasks file for php
+# Main tasks file for php role
 
-- name: 'Load the OS specific varibles'
-  include_vars: "vars/{{ ansible_distribution_release | lower }}.yml"
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
   tags:
-    - 'php::role'
-    - 'php::config'
-    - 'php::install'
+    - 'role::php'
+    - 'role::php::config'
+    - 'role::php::init'
+    - 'role::php::install'
 
 
-- name: 'Install PHP on debian familly systems'
-  include: 'install_debian.yml'
-  when: "{{ (ansible_os_family | lower) == 'debian' }}"
+- name: 'INSTALL | Install PHP'
+  become: True
+  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
   tags:
-    - 'php::role'
-    - 'php::install'
+    - 'role::php'
+    - 'role::php::install'
 
 
-- name: 'Configure PHP and modules'
-  include: 'config.yml'
+- name: 'CONFIG | Configure PHP and modules'
+  become: True
+  include: "{{ role_path }}/tasks/config.yml"
   tags:
-    - 'php::role'
-    - 'php::config'
+    - 'role::php'
+    - 'role::php::config'
