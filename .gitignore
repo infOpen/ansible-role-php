@@ -12,6 +12,7 @@ tests/roles/
 
 # Pytest
 .cache
+.pytest_cache
 
 # Tox
 .tox
@@ -19,3 +20,6 @@ tests/roles/
 # Vagrant
 .vagrant
 *.log
+
+# Molecule
+.molecule
