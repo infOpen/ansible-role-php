@@ -1,10 +1,10 @@
 ---
 
-# handlers file for php
+# Handlers main file for php role
 
-- name: 'Manage dependencies services'
+- name: 'HANDLER | Manage dependencies services'
   become: True
   service:
-    name: "{{ item.name }}"
+    name: "{{ item.name }}"
     state: "{{ item.state }}"
-  with_items: "{{ php_dependencies_services }}"
+  with_items: "{{ php_dependencies_services }}"

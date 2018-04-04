@@ -1,6 +1,6 @@
 ---
 
-# Defaults file for php
+# Defaults vars file for php role
 
 # Installation
 php_apt_update_cache: True

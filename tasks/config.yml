@@ -2,8 +2,7 @@
 
 # PHP config tasks
 
-- name: 'Manage php.ini config files'
-  become: True
+- name: 'CONFIG | Manage php.ini config files'
   ini_file:
     dest: "{{ item.0.dest }}"
     owner: "{{ php_config_files_owner }}"
@@ -13,23 +12,21 @@
     option: "{{ item.1.option | default(omit) }}"
     value: "{{ item.1.value | default(omit) }}"
     state: "{{ item.1.state | default('present') }}"
-  notify: 'Manage dependencies services'
+  notify: 'HANDLER | Manage dependencies services'
   with_subelements:
     - "{{ php_config_settings }}"
     - 'settings'
 
 
-- name: 'Enable PHP modules'
-  become: True
+- name: 'CONFIG | Enable PHP modules'
   shell: "{{ php_modules_binary_enable }} {{ item }}"
   args:
     creates: "{{ php_config_base_path }}/cli/conf.d/*-{{ item }}.ini"
-  notify: 'Manage dependencies services'
+  notify: 'HANDLER | Manage dependencies services'
   with_items: "{{ php_modules_enabled }}"
 
 
-- name: 'Find all enabled modules'
-  become: True
+- name: 'CONFIG | Find all enabled modules'
   shell: >
     find {{ _php_config_base_path }}/mods-available/ \
      -name "*.ini" \
@@ -39,10 +36,9 @@
   changed_when: False
 
 
-- name: 'Disable unmanaged modules'
-  become: True
+- name: 'CONFIG | Disable unmanaged modules'
   shell: "{{ php_modules_binary_disable }} {{ item }}"
   args:
     removes: "{{ php_config_base_path }}/cli/conf.d/*-{{ item }}.ini"
-  notify: 'Manage dependencies services'
+  notify: 'HANDLER | Manage dependencies services'
   with_items: "{{ php_available_modules.stdout_lines | difference(php_modules_enabled) | list }}"
