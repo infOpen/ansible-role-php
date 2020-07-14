@@ -3,6 +3,7 @@
 # PHP config tasks
 
 - name: 'CONFIG | Manage php.ini config files'
+  become: True
   ini_file:
     dest: "{{ item.0.dest }}"
     owner: "{{ php_config_files_owner }}"
@@ -19,15 +20,17 @@
 
 
 - name: 'CONFIG | Enable PHP modules'
-  shell: "{{ php_modules_binary_enable }} {{ item }}"
+  become: True
+  command: "{{ php_modules_binary_enable }} {{ item }}"
   args:
     creates: "{{ php_config_base_path }}/cli/conf.d/*-{{ item }}.ini"
   notify: 'HANDLER | Manage dependencies services'
-  with_items: "{{ php_modules_enabled }}"
+  loop: "{{ php_modules_enabled }}"
 
 
 - name: 'CONFIG | Find all enabled modules'
-  shell: >
+  become: True
+  command: >
     find {{ _php_config_base_path }}/mods-available/ \
      -name "*.ini" \
      -type f \
@@ -37,8 +40,9 @@
 
 
 - name: 'CONFIG | Disable unmanaged modules'
-  shell: "{{ php_modules_binary_disable }} {{ item }}"
+  become: True
+  command: "{{ php_modules_binary_disable }} {{ item }}"
   args:
     removes: "{{ php_config_base_path }}/cli/conf.d/*-{{ item }}.ini"
   notify: 'HANDLER | Manage dependencies services'
-  with_items: "{{ php_available_modules.stdout_lines | difference(php_modules_enabled) | list }}"
+  loop: "{{ php_available_modules.stdout_lines | difference(php_modules_enabled) | list }}"

@@ -1,5 +1,5 @@
 ---
 
-# Ubuntu xenial vars
+# Debian Stretch vars
 
 _php_version: '7.0'

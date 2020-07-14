@@ -1,0 +1,5 @@
+---
+
+# Debian Stretch vars
+
+_php_version: '7.3'
