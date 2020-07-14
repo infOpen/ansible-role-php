@@ -1,0 +1,39 @@
+---
+
+# Debian OS family vars
+
+_php_config_base_path: "/etc/php/{{ _php_version }}"
+_php_config_settings:
+  - dest: "{{ php_config_base_path }}/cli/php.ini"
+    settings: []
+
+_php_dependencies_services:
+  - name: "php{{ _php_version }}-fpm"
+    state: 'restarted'
+
+_php_packages:
+  - name: 'php'
+  - name: 'php-fpm'
+
+_php_modules_binary_disable: '/usr/sbin/phpdismod'
+_php_modules_binary_enable: '/usr/sbin/phpenmod'
+_php_modules_enabled:
+  - 'calendar'
+  - 'ctype'
+  - 'exif'
+  - 'fileinfo'
+  - 'ftp'
+  - 'gettext'
+  - 'iconv'
+  - 'json'
+  - 'opcache'
+  - 'pdo'
+  - 'phar'
+  - 'posix'
+  - 'readline'
+  - 'shmop'
+  - 'sockets'
+  - 'sysvmsg'
+  - 'sysvsem'
+  - 'sysvshm'
+  - 'tokenizer'
